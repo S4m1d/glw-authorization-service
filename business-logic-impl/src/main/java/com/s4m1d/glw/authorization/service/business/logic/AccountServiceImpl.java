@@ -1,5 +1,6 @@
 package com.s4m1d.glw.authorization.service.business.logic;
 
+import com.s4m1d.glw.authorization.service.authentication.service.integration.AuthenticationService;
 import com.s4m1d.glw.authorization.service.business.logic.constant.AccountCreationResult;
 import com.s4m1d.glw.authorization.service.business.logic.constant.AccountRemovalResult;
 import com.s4m1d.glw.authorization.service.business.logic.datamodel.AccountCreationInfo;
@@ -18,6 +19,7 @@ import static com.s4m1d.glw.authorization.service.business.logic.constant.Accoun
 @Log4j2
 public class AccountServiceImpl implements AccountService {
     private final AccountDbaService accountDbaService;
+    private final AuthenticationService authenticationService;
 
     @Override
     public AccountCreationResult createAccount(AccountCreationInfo accountCreationInfo) {
@@ -38,10 +40,14 @@ public class AccountServiceImpl implements AccountService {
     public AccountRemovalResult removeAccount(AccountRemovalInfo accountRemovalInfo) {
         //todo remove all stubs, rework later
         try {
-            accountDbaService.removeAccount("JohnDoe");
+            String userName = authenticationService.getUserNameByToken(accountRemovalInfo.getToken());
+            if(userName == null) {
+                return AccountRemovalResult.AUTHENTICATION_FAIL;
+            }
+            accountDbaService.removeAccount(userName);
             return AccountRemovalResult.REMOVAL_SUCCESS;
         } catch (AccountNotFoundException e) {
-            log.error("No Account with name JohnDoe");
+            log.error("No Account with this name");
             return AccountRemovalResult.NO_SUCH_ACCOUNT;
         } catch (Exception e) {
             log.error("An unexpected exception occurred");

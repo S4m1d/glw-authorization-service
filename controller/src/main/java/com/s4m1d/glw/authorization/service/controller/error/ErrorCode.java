@@ -10,7 +10,9 @@ public enum ErrorCode {
 
     AC_01("Account with such name already exists"),
 
-    AR_01("No account with such user name exists");
+    AR_01("No account with such user name exists"),
+
+    AUTH_01("No active session with this token");
 
     private final String message;
 }
