@@ -2,6 +2,7 @@ package com.s4m1d.glw.authorization.service.dba;
 
 import com.s4m1d.glw.authorization.service.dba.datamodel.UserCredentials;
 import com.s4m1d.glw.authorization.service.dba.exception.AccountAlreadyExistsException;
+import com.s4m1d.glw.authorization.service.dba.exception.AccountNotFoundException;
 import com.s4m1d.glw.authorization.service.dba.repository.UserCredentialsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,5 +31,13 @@ public class AccountDbaServiceImpl implements AccountDbaService{
             log.error(e.getMessage());
             throw new AccountAlreadyExistsException();
         }
+    }
+
+    @Override
+    public void removeAccount(String userName) throws AccountNotFoundException {
+        if (!userCredentialsRepository.checkIfExists(userName)) {
+            throw new AccountNotFoundException();
+        }
+        userCredentialsRepository.delete(userName);
     }
 }

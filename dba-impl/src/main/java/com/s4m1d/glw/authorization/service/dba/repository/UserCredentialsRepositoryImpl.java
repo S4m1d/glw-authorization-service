@@ -4,9 +4,9 @@ import com.s4m1d.glw.authorization.service.dba.datamodel.UserCredentials;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
+import javax.persistence.*;
+
+import static com.s4m1d.glw.authorization.service.dba.constant.UserCredentialsQueryName.*;
 
 @Repository
 public class UserCredentialsRepositoryImpl implements UserCredentialsRepository {
@@ -17,5 +17,26 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
     @Transactional
     public void insert(UserCredentials userCredentials) {
         entityManager.persist(userCredentials);
+    }
+
+    @Override
+    @Transactional
+    public void delete(String userName) {
+        Query query = entityManager.createNamedQuery(DELETE_BY_LOGIN);
+        query.setParameter(USER_NAME_PARAMETER, userName);
+        query.executeUpdate();
+    }
+
+    @Override
+    @Transactional
+    public boolean checkIfExists(String userName) {
+        Query query = entityManager.createNamedQuery(FIND_BY_LOGIN);
+        query.setParameter(USER_NAME_PARAMETER, userName);
+        try {
+            query.getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
     }
 }

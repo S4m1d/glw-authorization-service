@@ -8,7 +8,9 @@ import lombok.Getter;
 public enum ErrorCode {
     UDE("Undefined exception occurred"),
 
-    AC_01("Account with such name already exists");
+    AC_01("Account with such name already exists"),
+
+    AR_01("No account with such user name exists");
 
     private final String message;
 }

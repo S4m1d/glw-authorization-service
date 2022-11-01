@@ -11,6 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
+@NamedQuery(name = "UserCredentials.deleteByLogin", query = "delete from UserCredentials u where u.login=:userName")
+@NamedQuery(name = "UserCredentials.findById", query = "select u from UserCredentials u where u.login=:userName")
 public class UserCredentials {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
