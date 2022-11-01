@@ -13,7 +13,7 @@ import static com.s4m1d.glw.authorization.service.business.logic.constant.Accoun
 @Component
 @RequiredArgsConstructor
 @Log4j2
-public class AccountCreationServiceImpl implements AccountCreationService{
+public class AccountServiceImpl implements AccountService {
     private final AccountDbaService accountDbaService;
     @Override
     public AccountCreationResult createAccount(AccountCreationInfo accountCreationInfo) {

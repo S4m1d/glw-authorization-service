@@ -10,14 +10,14 @@ import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.*;
 
-public class AccountCreationServiceImplTest {
-    private AccountCreationServiceImpl accountCreationService;
+public class AccountServiceImplTest {
+    private AccountServiceImpl accountCreationService;
     private AccountDbaService accountDbaService;
 
     @BeforeMethod
     public void setup() {
         accountDbaService = mock(AccountDbaService.class);
-        accountCreationService = new AccountCreationServiceImpl(accountDbaService);
+        accountCreationService = new AccountServiceImpl(accountDbaService);
     }
 
     @Test
