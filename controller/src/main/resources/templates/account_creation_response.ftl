@@ -2,6 +2,7 @@
   "success": ${success}
   <#if success = false>
       ,
-      "errorCode":"${errorCode}"
+      "errorCode":"${errorCode}",
+      "message":"${message}"
   </#if>
 }
