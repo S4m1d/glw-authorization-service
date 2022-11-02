@@ -1,6 +1,6 @@
 # glw-authorization-service
 Authorization microservice for my project DnD Game Logs Writer
-# DB configuration scrip
+# DB configuration script
 ```{MySQL} 
 create database glw_user_info_db;
 
