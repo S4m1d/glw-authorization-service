@@ -39,4 +39,12 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
             return false;
         }
     }
+
+    @Override
+    @Transactional
+    public String getUserPassword(String userName) {
+        Query query = entityManager.createNamedQuery(GET_PASSWORD_BY_LOGIN);
+        query.setParameter(USER_NAME_PARAMETER, userName);
+        return (String)query.getSingleResult();
+    }
 }

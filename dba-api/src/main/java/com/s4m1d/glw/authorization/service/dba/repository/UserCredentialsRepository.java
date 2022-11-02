@@ -6,4 +6,5 @@ public interface UserCredentialsRepository {
     void insert(UserCredentials userCredentials);
     void delete(String userName);
     boolean checkIfExists(String userName);
+    String getUserPassword(String userName);
 }

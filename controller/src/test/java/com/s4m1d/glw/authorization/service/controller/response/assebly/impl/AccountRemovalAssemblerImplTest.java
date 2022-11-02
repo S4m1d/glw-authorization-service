@@ -7,8 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.s4m1d.glw.authorization.service.controller.error.ErrorCode.AR_01;
-import static com.s4m1d.glw.authorization.service.controller.error.ErrorCode.UDE;
+import static com.s4m1d.glw.authorization.service.business.logic.error.ErrorCode.CRED_02;
+import static com.s4m1d.glw.authorization.service.business.logic.error.ErrorCode.UDE;
 import static com.s4m1d.glw.authorization.service.controller.model.attribute.AccountRemovalResponseAttribute.*;
 
 public class AccountRemovalAssemblerImplTest {
@@ -35,14 +35,14 @@ public class AccountRemovalAssemblerImplTest {
     public void assemble_no_such_account_test() {
         Model model = new ExtendedModelMap();
 
-        accountRemovalResponseAssembler.assemble(model, AccountRemovalResult.NO_SUCH_ACCOUNT);
+        accountRemovalResponseAssembler.assemble(model, AccountRemovalResult.ACCOUNT_NOT_FOUND);
 
         Assert.assertNotNull(model.getAttribute(SUCCESS));
         Assert.assertFalse((Boolean) model.getAttribute(SUCCESS));
         Assert.assertNotNull(model.getAttribute(ERROR_CODE));
-        Assert.assertEquals(model.getAttribute(ERROR_CODE), AR_01.toString());
+        Assert.assertEquals(model.getAttribute(ERROR_CODE), CRED_02.toString());
         Assert.assertNotNull(model.getAttribute(MESSAGE));
-        Assert.assertNotNull(model.getAttribute(MESSAGE), AR_01.getMessage());
+        Assert.assertNotNull(model.getAttribute(MESSAGE), CRED_02.getMessage());
     }
 
     @Test

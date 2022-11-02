@@ -9,7 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLIntegrityConstraintViolationException;
+import javax.persistence.NoResultException;
 
 @Component
 @RequiredArgsConstructor
@@ -39,5 +39,16 @@ public class AccountDbaServiceImpl implements AccountDbaService{
             throw new AccountNotFoundException();
         }
         userCredentialsRepository.delete(userName);
+    }
+
+    @Override
+    public String getPassword(String userName) throws AccountNotFoundException{
+        try {
+            return userCredentialsRepository.getUserPassword(userName);
+        } catch (NoResultException e) {
+            log.error(e);
+            log.error(String.format("No account with user name %s", userName));
+            throw new AccountNotFoundException();
+        }
     }
 }

@@ -5,7 +5,7 @@ import com.s4m1d.glw.authorization.service.controller.response.assebly.api.Accou
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import static com.s4m1d.glw.authorization.service.controller.error.ErrorCode.*;
+import static com.s4m1d.glw.authorization.service.business.logic.error.ErrorCode.*;
 import static com.s4m1d.glw.authorization.service.controller.model.attribute.AccountRemovalResponseAttribute.*;
 
 @Component
@@ -16,15 +16,15 @@ public class AccountRemovalResponseAssemblerImpl implements AccountRemovalRespon
             case REMOVAL_SUCCESS:
                 model.addAttribute(SUCCESS, true);
                 break;
-            case NO_SUCH_ACCOUNT:
+            case ACCOUNT_NOT_FOUND:
                 model.addAttribute(SUCCESS, false);
-                model.addAttribute(ERROR_CODE, AR_01.toString());
-                model.addAttribute(MESSAGE, AR_01.getMessage());
+                model.addAttribute(ERROR_CODE, CRED_02.toString());
+                model.addAttribute(MESSAGE, CRED_02.getMessage());
                 break;
             case AUTHENTICATION_FAIL:
                 model.addAttribute(SUCCESS, false);
-                model.addAttribute(ERROR_CODE, AUTH_01.toString());
-                model.addAttribute(MESSAGE, AUTH_01.getMessage());
+                model.addAttribute(ERROR_CODE, AUTHENTICATION_01.toString());
+                model.addAttribute(MESSAGE, AUTHENTICATION_01.getMessage());
                 break;
             case OTHER_EXCEPTION:
                 model.addAttribute(SUCCESS, false);

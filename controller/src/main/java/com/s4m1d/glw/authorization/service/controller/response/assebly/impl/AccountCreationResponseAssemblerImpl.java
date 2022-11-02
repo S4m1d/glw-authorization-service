@@ -5,8 +5,8 @@ import com.s4m1d.glw.authorization.service.controller.response.assebly.api.Accou
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import static com.s4m1d.glw.authorization.service.controller.error.ErrorCode.AC_01;
-import static com.s4m1d.glw.authorization.service.controller.error.ErrorCode.UDE;
+import static com.s4m1d.glw.authorization.service.business.logic.error.ErrorCode.CRED_01;
+import static com.s4m1d.glw.authorization.service.business.logic.error.ErrorCode.UDE;
 import static com.s4m1d.glw.authorization.service.controller.model.attribute.AccountCreationResponseAttribute.*;
 
 @Component
@@ -19,8 +19,8 @@ public class AccountCreationResponseAssemblerImpl implements AccountCreationResp
                 break;
             case ALREADY_EXISTS:
                 model.addAttribute(SUCCESS, false);
-                model.addAttribute(ERROR_CODE, AC_01.toString());
-                model.addAttribute(MESSAGE, AC_01.getMessage());
+                model.addAttribute(ERROR_CODE, CRED_01.toString());
+                model.addAttribute(MESSAGE, CRED_01.getMessage());
                 break;
             case OTHER_EXCEPTION:
                 model.addAttribute(SUCCESS, false);

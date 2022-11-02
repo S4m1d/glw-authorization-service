@@ -8,11 +8,16 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.persistence.NoResultException;
+
 import static org.mockito.Mockito.*;
 
 public class AccountDbaServiceImplTest {
     private AccountDbaServiceImpl accountDbaService;
     private UserCredentialsRepository userCredentialsRepository;
+    private final String USER_NAME = "some_1337_user_name";
+    private final String PASSWORD = "666$!_some_very_cool_password_!$777";
+
     @BeforeMethod
     public void setup() {
         userCredentialsRepository = mock(UserCredentialsRepository.class);
@@ -24,7 +29,7 @@ public class AccountDbaServiceImplTest {
     @Test
     public void createAccount_success() {
         try {
-            accountDbaService.createAccount("usrnm", "pwd");
+            accountDbaService.createAccount(USER_NAME, "pwd");
         } catch (Exception e) {
             throw new AssertionError(e);
         }
@@ -36,7 +41,7 @@ public class AccountDbaServiceImplTest {
 
         boolean isExceptionThrown = false;
         try {
-            accountDbaService.createAccount("usrnm", "pwd");
+            accountDbaService.createAccount(USER_NAME, "pwd");
         } catch (AccountAlreadyExistsException e) {
             isExceptionThrown = true;
         } catch (Exception e) {
@@ -52,7 +57,7 @@ public class AccountDbaServiceImplTest {
 
         boolean isExceptionThrown = false;
         try {
-            accountDbaService.createAccount("usrnm", "pwd");
+            accountDbaService.createAccount(USER_NAME, "pwd");
         } catch (AccountAlreadyExistsException e) {
             throw new AssertionError(e);
         } catch (Exception e) {
@@ -65,7 +70,7 @@ public class AccountDbaServiceImplTest {
     @Test
     public void removeAccount_success() {
         try {
-            accountDbaService.removeAccount("someUserName");
+            accountDbaService.removeAccount(USER_NAME);
         } catch (Exception e) {
             throw new AssertionError(e);
         }
@@ -77,7 +82,7 @@ public class AccountDbaServiceImplTest {
 
         boolean isExceptionThrown = false;
         try {
-            accountDbaService.removeAccount("someUserName");
+            accountDbaService.removeAccount(USER_NAME);
         } catch (AccountNotFoundException e) {
             isExceptionThrown = true;
         } catch (Exception e) {
@@ -93,11 +98,41 @@ public class AccountDbaServiceImplTest {
 
         boolean isExceptionThrown = false;
         try {
-            accountDbaService.removeAccount("someUserName");
+            accountDbaService.removeAccount(USER_NAME);
         } catch (AccountNotFoundException e) {
             throw new AssertionError(e);
         } catch (Exception e) {
             isExceptionThrown = true;
+        }
+
+        Assert.assertTrue(isExceptionThrown);
+    }
+
+    @Test
+    public void getPassword_success() {
+        when(userCredentialsRepository.getUserPassword(any())).thenReturn(PASSWORD);
+
+        String pwd;
+        try{
+            pwd = accountDbaService.getPassword(USER_NAME);
+        } catch (Exception e) {
+            throw new AssertionError(e);
+        }
+
+        Assert.assertEquals(pwd, PASSWORD);
+    }
+
+    @Test
+    public void getPassword_no_such_account() {
+        when(userCredentialsRepository.getUserPassword(any())).thenThrow(new NoResultException());
+
+        boolean isExceptionThrown = false;
+        try {
+            accountDbaService.getPassword(USER_NAME);
+        } catch (AccountNotFoundException e) {
+            isExceptionThrown = true;
+        } catch (Exception e) {
+            throw new AssertionError(e);
         }
 
         Assert.assertTrue(isExceptionThrown);

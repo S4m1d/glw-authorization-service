@@ -1,7 +1,7 @@
 package com.s4m1d.glw.authorization.service.controller.response.assebly.impl;
 
 import com.s4m1d.glw.authorization.service.business.logic.constant.AccountCreationResult;
-import com.s4m1d.glw.authorization.service.controller.error.ErrorCode;
+import com.s4m1d.glw.authorization.service.business.logic.error.ErrorCode;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.testng.Assert;
@@ -37,9 +37,9 @@ public class AccountCreationResponseAssemblerImplTest {
         Assert.assertNotNull(model.getAttribute(SUCCESS));
         Assert.assertFalse((Boolean) model.getAttribute(SUCCESS));
         Assert.assertNotNull(model.getAttribute(ERROR_CODE));
-        Assert.assertEquals(model.getAttribute(ERROR_CODE), ErrorCode.AC_01.toString());
+        Assert.assertEquals(model.getAttribute(ERROR_CODE), ErrorCode.CRED_01.toString());
         Assert.assertNotNull(model.getAttribute(MESSAGE));
-        Assert.assertEquals(model.getAttribute(MESSAGE), ErrorCode.AC_01.getMessage());
+        Assert.assertEquals(model.getAttribute(MESSAGE), ErrorCode.CRED_01.getMessage());
     }
 
     @Test

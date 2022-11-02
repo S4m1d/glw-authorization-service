@@ -9,5 +9,5 @@ import lombok.*;
 @NoArgsConstructor
 public class AccountCreationRequestBody {
     private String userName;
-    private String pwd;
+    private String password;
 }

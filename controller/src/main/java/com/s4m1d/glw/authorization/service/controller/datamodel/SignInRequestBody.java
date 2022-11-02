@@ -1,15 +1,15 @@
-package com.s4m1d.glw.authorization.service.business.logic.datamodel;
+package com.s4m1d.glw.authorization.service.controller.datamodel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountCreationInfo {
+@Getter
+@Setter
+public class SignInRequestBody {
     private String userName;
-    private String pwd;
+    private String password;
 }

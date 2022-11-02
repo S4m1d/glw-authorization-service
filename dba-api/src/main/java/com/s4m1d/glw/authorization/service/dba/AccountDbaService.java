@@ -6,4 +6,5 @@ import com.s4m1d.glw.authorization.service.dba.exception.AccountNotFoundExceptio
 public interface AccountDbaService {
     void createAccount(String userName, String pwd) throws AccountAlreadyExistsException;
     void removeAccount(String userName) throws AccountNotFoundException;
+    String getPassword(String userName) throws AccountNotFoundException;
 }
